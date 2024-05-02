@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:pollutrack24/screens/exposure.dart';
+import 'package:pollutrack24/screens/login.dart';
 import 'package:pollutrack24/screens/profile.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -41,6 +43,25 @@ class _HomeState extends State<Home> {
       default:
         return Exposure();
     }
+  }
+
+  _toLogin(BuildContext context) async {
+    final sp = await SharedPreferences.getInstance();
+
+    // opt 1: remove specific keys
+    // await sp.remove("age");
+    // await sp.remove("gender");
+    // await sp.remove("username");
+    // await sp.remove("password");
+
+    // opt 2: clear whole shared prefs
+    await sp.clear();
+
+    //Pop the drawer first
+    Navigator.pop(context);
+    //Then pop the HomePage
+    Navigator.of(context)
+        .pushReplacement(MaterialPageRoute(builder: ((context) => Login())));
   }
 
   @override
