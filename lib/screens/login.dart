@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:pollutrack24/services/impact.dart';
 import 'package:pollutrack24/screens/api_key_onboarding.dart';
@@ -27,6 +26,7 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(
