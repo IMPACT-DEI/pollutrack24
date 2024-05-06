@@ -20,9 +20,9 @@ class Exposure extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                "Hello, User",
-                style: TextStyle(fontSize: 16),
+              Text(
+                "Hello, ${provider.nick}",
+                style: const TextStyle(fontSize: 16),
               ),
               const SizedBox(
                 height: 20,

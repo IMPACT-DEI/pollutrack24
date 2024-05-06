@@ -45,25 +45,6 @@ class _HomeState extends State<Home> {
     }
   }
 
-  _toLogin(BuildContext context) async {
-    final sp = await SharedPreferences.getInstance();
-
-    // opt 1: remove specific keys
-    // await sp.remove("age");
-    // await sp.remove("gender");
-    // await sp.remove("username");
-    // await sp.remove("password");
-
-    // opt 2: clear whole shared prefs
-    await sp.clear();
-
-    //Pop the drawer first
-    Navigator.pop(context);
-    //Then pop the HomePage
-    Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(builder: ((context) => Login())));
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
