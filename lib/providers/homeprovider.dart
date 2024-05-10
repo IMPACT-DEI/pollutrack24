@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:pollutrack24/models/heart_rate.dart';
 import 'package:pollutrack24/models/pm25.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // this is the change notifier. it will manage all the logic of the home page: fetching the correct data from the online services
 class HomeProvider extends ChangeNotifier {
@@ -10,7 +11,7 @@ class HomeProvider extends ChangeNotifier {
   List<HR> heartRates = [];
   List<PM25> pm25 = [];
   double exposure = 0;
-
+  String nick = 'User';
   // selected day of data to be shown
   DateTime showDate = DateTime.now();
 
@@ -25,6 +26,8 @@ class HomeProvider extends ChangeNotifier {
 
   // method to get the data of the chosen day
   void getDataOfDay(DateTime showDate) async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    nick = sp.getString('name') ?? 'User';
     this.showDate = showDate;
     _loading(); // method to give a loading ui feedback to the user
     await Future.delayed(

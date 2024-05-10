@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:pollutrack24/screens/api_key.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:pollutrack24/screens/login.dart';
 import 'package:pollutrack24/screens/personal_info.dart';
 
 class Profile extends StatelessWidget {
@@ -47,6 +50,18 @@ class Profile extends StatelessWidget {
                         builder: (context) => const PersonalInfo()));
                   },
                 ),
+                Divider(
+                  color: Color(0xFFFFFFFF),
+                  thickness: 3,
+                ),
+                ListTile(
+                  leading: Text("API Key", style: TextStyle(fontSize: 14)),
+                  trailing: Icon(Icons.navigate_next),
+                  onTap: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => ApiKey()));
+                  },
+                )
               ],
             ),
             const SizedBox(
@@ -74,9 +89,45 @@ class Profile extends StatelessWidget {
                 ],
               ),
             ),
+            const SizedBox(
+              height: 20,
+            ),
+            Align(
+              alignment: Alignment.center,
+              child: ElevatedButton(
+                onPressed: () async {
+                  _toLogin(context);
+                },
+                style: ButtonStyle(
+                    padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                        const EdgeInsets.symmetric(
+                            horizontal: 80, vertical: 12)),
+                    foregroundColor:
+                        MaterialStateProperty.all<Color>(Colors.white),
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                        const Color(0xFF384242))),
+                child: const Text('Log Out'),
+              ),
+            ),
           ],
         ),
       ),
     );
+  }
+
+  _toLogin(BuildContext context) async {
+    final sp = await SharedPreferences.getInstance();
+
+    // opt 1: remove specific keys
+    // await sp.remove("age");
+    // await sp.remove("gender");
+    // await sp.remove("username");
+    // await sp.remove("password");
+
+    // opt 2: clear whole shared prefs
+    await sp.clear();
+    //Then pop the HomePage
+    Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: ((context) => const Login())));
   }
 }

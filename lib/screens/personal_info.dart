@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PersonalInfo extends StatefulWidget {
   const PersonalInfo({super.key});
@@ -18,7 +19,9 @@ class _PersonalInfoState extends State<PersonalInfo> {
 
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
+    _loadPrefs();
   }
 
   Future<void> _selectDate(BuildContext context) async {
@@ -32,11 +35,24 @@ class _PersonalInfoState extends State<PersonalInfo> {
     }
   }
 
+  void _loadPrefs() async {
+    final sp = await SharedPreferences.getInstance();
+    // Use a default value if the key doesn't exist
+    String bioS = sp.getString('bs') ?? "";
+    String dob = sp.getString('dob') ?? "";
+    String name = sp.getString('name') ?? "";
+    setState(() {
+      bs = int.tryParse(bioS);
+      dateController.text = dob;
+      nameController.text = name;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xFFFFFFFF),
+        backgroundColor: Color(0xFFFFFFFF),
       ),
       body: Padding(
         padding: const EdgeInsets.only(left: 8.0, top: 4),
@@ -123,19 +139,19 @@ class _PersonalInfoState extends State<PersonalInfo> {
                   ),
                   hint: Row(children: [
                     Icon(MdiIcons.genderMaleFemale),
-                    const SizedBox(
+                    SizedBox(
                       width: 10,
                     ),
-                    const Text("Biological Sex")
+                    Text("Biological Sex")
                   ]),
-                  items: const [
+                  items: [
                     DropdownMenuItem(
-                      value: 0,
                       child: Text("Male"),
+                      value: 0,
                     ),
                     DropdownMenuItem(
-                      value: 1,
                       child: Text("Female"),
+                      value: 1,
                     )
                   ],
                   onChanged: (value) {
@@ -151,6 +167,11 @@ class _PersonalInfoState extends State<PersonalInfo> {
                 child: ElevatedButton(
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
+                      final sp = await SharedPreferences.getInstance();
+                      await sp.setString('bs', bs.toString());
+                      await sp.setString('dob', dateController.text.toString());
+                      await sp.setString(
+                          'name', nameController.text.toString());
                       Navigator.of(context).pop();
                     }
                   },
