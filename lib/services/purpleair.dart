@@ -32,7 +32,7 @@ class PurpleAir {
   }
 
   // example of how to get the data from purpleair
-  Future<Map<String, dynamic>> getData(String sensorIdx) async {
+  Future<Map<String, dynamic>> getData() async {
     final sp = await SharedPreferences.getInstance();
     final xApiKey = sp.getString('purpleAirKey');
 
@@ -56,5 +56,31 @@ class PurpleAir {
       }
     }
     return {};
+  }
+
+  Future<Map<String, dynamic>> getHistoryData(DateTime startTime) async {
+    try {
+      final sp = await SharedPreferences.getInstance();
+      final xApiKey = sp.getString('purpleAirKey');
+      final url =
+          '$purpleAirUrl$purpleAirApiSensorDataUrl/$sensorIdxMortise/history/?start_timestamp=${startTime.millisecondsSinceEpoch / 1000}&end_timestamp=${startTime.add(const Duration(days: 1)).millisecondsSinceEpoch / 1000}&fields=pm2.5_atm';
+      // Add custom headers
+      var headers = {
+        'X-API-KEY': xApiKey!,
+      };
+      //Get the response
+      print('Calling: $url');
+      final response = await http.get(Uri.parse(url), headers: headers);
+      if (response.statusCode == 200) {
+        final decodedResponse = jsonDecode(response.body);
+        return decodedResponse;
+      } else {
+        print('Error in purpleair call');
+        return {};
+      }
+    } catch (e) {
+      print(e);
+      return {};
+    }
   }
 }

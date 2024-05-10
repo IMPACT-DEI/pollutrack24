@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:pollutrack24/models/heart_rate.dart';
 import 'package:pollutrack24/models/pm25.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:pollutrack24/services/impact.dart';
+import 'package:pollutrack24/services/purpleair.dart';
 
 // this is the change notifier. it will manage all the logic of the home page: fetching the correct data from the online services
 class HomeProvider extends ChangeNotifier {
@@ -13,11 +15,11 @@ class HomeProvider extends ChangeNotifier {
   double exposure = 0;
   String nick = 'User';
   // selected day of data to be shown
-  DateTime showDate = DateTime.now();
+  DateTime showDate = DateTime.now().subtract(const Duration(days: 1));
 
   // data generators faking external services
-  final FitbitGen fitbitGen = FitbitGen();
-  final PurpleAirGen purpleAirGen = PurpleAirGen();
+  final Impact impact = Impact();
+  final PurpleAir purpleAir = PurpleAir();
 
   // constructor of provider which manages the fetching of all data from the servers and then notifies the ui to build
   HomeProvider() {
@@ -26,18 +28,22 @@ class HomeProvider extends ChangeNotifier {
 
   // method to get the data of the chosen day
   void getDataOfDay(DateTime showDate) async {
-    SharedPreferences sp = await SharedPreferences.getInstance();
-    nick = sp.getString('name') ?? 'User';
+    showDate = DateUtils.dateOnly(showDate);
     this.showDate = showDate;
     _loading(); // method to give a loading ui feedback to the user
-    await Future.delayed(
-      const Duration(milliseconds: 500),
-    ); // faking time required to get data from internet
-    heartRates = fitbitGen.fetchHR();
-    pm25 = purpleAirGen.fetchPM();
+    heartRates = await impact.getDataFromDay(showDate);
+    var pm25Map = await purpleAir.getHistoryData(showDate);
+    pm25 = (pm25Map['data'])
+        .map<PM25>((e) => PM25(
+            timestamp:
+                DateTime.fromMillisecondsSinceEpoch((e[0] * 1000).toInt()),
+            value: e[1]))
+        .toList();
+    pm25.sort(
+      (a, b) => a.timestamp.compareTo(b.timestamp),
+    );
     exposure = Random().nextDouble() * 100;
-    print(
-        'Generated for $showDate: ${heartRates.map((e) => e.value.toString()).reduce((value, element) => '$value, $element')}');
+    print('Got data for $showDate: ${heartRates.length}, ${pm25.length}');
     // after selecting all data we notify all consumers to rebuild
     notifyListeners();
   }

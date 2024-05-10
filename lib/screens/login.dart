@@ -125,6 +125,7 @@ class _LoginState extends State<Login> {
                           await sp.setString('username', userController.text);
                           await sp.setString(
                               'password', passwordController.text);
+                          await impact.getPatient();
                           if (sp.getString('purpleAirKey') != null) {
                             Navigator.of(context).pushReplacement(
                                 MaterialPageRoute(

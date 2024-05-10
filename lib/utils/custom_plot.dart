@@ -69,6 +69,6 @@ class CustomPlot extends StatelessWidget {
         )
         .toList();
 
-    return out.reversed.toList();
+    return out.toList();
   }
 }
