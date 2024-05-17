@@ -17,7 +17,7 @@ class HomeProvider extends ChangeNotifier {
   // selected day of data to be shown
   DateTime showDate = DateTime.now().subtract(const Duration(days: 1));
 
-  // data generators faking external services
+  // data generators from external services
   final Impact impact = Impact();
   final PurpleAir purpleAir = PurpleAir();
 
