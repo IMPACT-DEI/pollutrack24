@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:graphic/graphic.dart';
 import 'package:intl/intl.dart';
+import 'package:pollutrack24/models/inhalation_rate.dart';
 import 'package:pollutrack24/models/pm25.dart';
 
 class CustomPlot extends StatelessWidget {
   const CustomPlot({
     Key? key,
-    required this.pm25,
+    required this.inhalationRates,
   }) : super(key: key);
 
-  final List<PM25> pm25;
+  final List<InhalationRate> inhalationRates;
 
   @override
   Widget build(BuildContext context) {
-    List<Map<String, dynamic>> data = _parseData(pm25);
+    List<Map<String, dynamic>> data = _parseData(inhalationRates);
     return Chart(
       rebuild: true,
       data: data,
@@ -58,13 +59,13 @@ class CustomPlot extends StatelessWidget {
     );
   }
 
-  List<Map<String, dynamic>> _parseData(List<PM25> pm25) {
-    var out = pm25
+  List<Map<String, dynamic>> _parseData(List<InhalationRate> inhalationRates) {
+    var out = inhalationRates
         .map(
           (e) => {
             'date': DateFormat('HH:mm').format(e.timestamp),
             'points': e.value,
-            'type': 'pm25',
+            'type': 'Inhalation Rate',
           },
         )
         .toList();

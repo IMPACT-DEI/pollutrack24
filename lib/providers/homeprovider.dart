@@ -2,7 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:pollutrack24/models/heart_rate.dart';
+import 'package:pollutrack24/models/inhalation_rate.dart';
 import 'package:pollutrack24/models/pm25.dart';
+import 'package:pollutrack24/utils/algorithm.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:pollutrack24/services/impact.dart';
 import 'package:pollutrack24/services/purpleair.dart';
@@ -13,13 +15,18 @@ class HomeProvider extends ChangeNotifier {
   List<HR> heartRates = [];
   List<PM25> pm25 = [];
   double exposure = 0;
+  List<InhalationRate> inhalationRate = [];
+
   String nick = 'User';
   // selected day of data to be shown
   DateTime showDate = DateTime.now().subtract(const Duration(days: 1));
 
-  // data generators faking external services
+  // data generators with external services
   final Impact impact = Impact();
   final PurpleAir purpleAir = PurpleAir();
+
+  // Algorithm class
+  final Algorithmms algorithm = Algorithmms(1);
 
   // constructor of provider which manages the fetching of all data from the servers and then notifies the ui to build
   HomeProvider() {
@@ -44,8 +51,18 @@ class HomeProvider extends ChangeNotifier {
     );
     exposure = Random().nextDouble() * 100;
     print('Got data for $showDate: ${heartRates.length}, ${pm25.length}');
+    inhalationRate = _calculateExposure(heartRates, pm25);
+    exposure = inhalationRate.map((e) => e.value).reduce(
+          (value, element) => value + element,
+        )/3;
     // after selecting all data we notify all consumers to rebuild
     notifyListeners();
+  }
+
+  // method that implements the state of the art formulas
+  List<InhalationRate> _calculateExposure(List<HR> hr, List<PM25> pm25) {
+    var vent = algorithm.getVentilationRate(hr);
+    return algorithm.getInhalationRate(vent, pm25);
   }
 
   void _loading() {
