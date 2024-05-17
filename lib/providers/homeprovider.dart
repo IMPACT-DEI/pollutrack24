@@ -49,12 +49,11 @@ class HomeProvider extends ChangeNotifier {
     pm25.sort(
       (a, b) => a.timestamp.compareTo(b.timestamp),
     );
-    exposure = Random().nextDouble() * 100;
     print('Got data for $showDate: ${heartRates.length}, ${pm25.length}');
     inhalationRate = _calculateExposure(heartRates, pm25);
     exposure = inhalationRate.map((e) => e.value).reduce(
           (value, element) => value + element,
-        )/3;
+        )/300*100;
     // after selecting all data we notify all consumers to rebuild
     notifyListeners();
   }
