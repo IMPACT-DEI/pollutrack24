@@ -34,15 +34,16 @@ dependencies:
   http: ^1.2.0
   shared_preferences: ^2.2.3
   jwt_decoder: ^2.0.1
+  material_design_icons_flutter: null
+  graphic: ^2.2.1
+  intl: null
+  provider: null
 
 dev_dependencies:
   flutter_lints: ^3.0.0
   flutter_test:
     sdk: flutter
-  graphic: ^2.2.1
-  intl: null
-  material_design_icons_flutter: null
-  provider: null
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

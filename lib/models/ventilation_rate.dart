@@ -1,5 +1,3 @@
-import 'dart:math';
-
 class VentilationRate {
   // this class models the single heart rate data point
   final DateTime timestamp;

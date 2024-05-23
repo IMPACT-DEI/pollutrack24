@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:pollutrack24/screens/exposure.dart';
-import 'package:pollutrack24/screens/login.dart';
 import 'package:pollutrack24/screens/profile.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});

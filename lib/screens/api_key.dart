@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:pollutrack24/screens/home.dart';
 import 'package:pollutrack24/services/purpleair.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiKey extends StatefulWidget {
-  ApiKey({super.key});
+  const ApiKey({super.key});
 
   @override
   State<ApiKey> createState() => _ApiKeyState();
@@ -43,7 +42,7 @@ class _ApiKeyState extends State<ApiKey> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFFFFFFFF),
+        backgroundColor: const Color(0xFFFFFFFF),
       ),
       body: Padding(
         padding: const EdgeInsets.only(left: 8.0, top: 4),

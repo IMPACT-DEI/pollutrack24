@@ -1,11 +1,9 @@
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:pollutrack24/models/heart_rate.dart';
 import 'package:pollutrack24/models/inhalation_rate.dart';
 import 'package:pollutrack24/models/pm25.dart';
 import 'package:pollutrack24/utils/algorithm.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:pollutrack24/services/impact.dart';
 import 'package:pollutrack24/services/purpleair.dart';
 

@@ -19,7 +19,6 @@ class _PersonalInfoState extends State<PersonalInfo> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _loadPrefs();
   }

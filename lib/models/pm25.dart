@@ -1,5 +1,3 @@
-import 'dart:math';
-
 class PM25 {
   // this class models the single PM2.5 data point
   final DateTime timestamp;

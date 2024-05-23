@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:graphic/graphic.dart';
 import 'package:intl/intl.dart';
 import 'package:pollutrack24/models/inhalation_rate.dart';
-import 'package:pollutrack24/models/pm25.dart';
 
 class CustomPlot extends StatelessWidget {
   const CustomPlot({
