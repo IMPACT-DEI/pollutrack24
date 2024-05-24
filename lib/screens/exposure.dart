@@ -183,10 +183,11 @@ class Exposure extends StatelessWidget {
                   decoration: const BoxDecoration(
                     color: Color(0xFFedf1f1),
                     borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(15.0),
-                        bottomLeft: Radius.circular(15.0),
-                        bottomRight: Radius.circular(15.0),
-                        topRight: Radius.circular(15.0)),
+                      topLeft: Radius.circular(50.0),
+                      bottomLeft: Radius.circular(15.0),
+                      bottomRight: Radius.circular(15.0),
+                      topRight: Radius.circular(15.0),
+                    ),
                   ),
                   child: AspectRatio(
                     aspectRatio: 16 / 9,
@@ -237,19 +238,22 @@ class Exposure extends StatelessWidget {
                                   onTap: () => Navigator.of(context).push(
                                       MaterialPageRoute(
                                           builder: (_) => WhatExposure())),
-                                  child: Container(
-                                    width: 300,
-                                    height: 200,
-                                    decoration: const BoxDecoration(
-                                      borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(15.0),
-                                          bottomLeft: Radius.circular(15.0),
-                                          bottomRight: Radius.circular(15.0),
-                                          topRight: Radius.circular(15.0)),
-                                      image: DecorationImage(
-                                        fit: BoxFit.cover,
-                                        image: AssetImage(
-                                            'assets/tyler-nix-VZEj0iepzKA-unsplash.jpg'),
+                                  child: Hero(transitionOnUserGestures: true,
+                                    tag: 'exposure',
+                                    child: Container(
+                                      width: 300,
+                                      height: 200,
+                                      decoration: const BoxDecoration(
+                                        borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(15.0),
+                                            bottomLeft: Radius.circular(15.0),
+                                            bottomRight: Radius.circular(15.0),
+                                            topRight: Radius.circular(15.0)),
+                                        image: DecorationImage(
+                                          fit: BoxFit.cover,
+                                          image: AssetImage(
+                                              'assets/tyler-nix-VZEj0iepzKA-unsplash.jpg'),
+                                        ),
                                       ),
                                     ),
                                   ),

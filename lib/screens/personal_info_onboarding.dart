@@ -37,7 +37,7 @@ class _PersonalInfoState extends State<PersonalInfoOnboarding> {
   // Method for navigation SplashPage -> HomePage
   void _toHomePage(BuildContext context) {
     Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(builder: (context) => const Home()));
+        .pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const Home()), (route) => false,);
   } //_toHomePage
 
   @override

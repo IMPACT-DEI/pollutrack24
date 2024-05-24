@@ -14,19 +14,22 @@ class WhatExposure extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            Container(
-              width: 300,
-              height: 200,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(15.0),
-                    bottomLeft: Radius.circular(15.0),
-                    bottomRight: Radius.circular(15.0),
-                    topRight: Radius.circular(15.0)),
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image:
-                      AssetImage('assets/tyler-nix-VZEj0iepzKA-unsplash.jpg'),
+            Hero(
+              tag: 'exposure',
+              child: Container(
+                width: 300,
+                height: 200,
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(15.0),
+                      bottomLeft: Radius.circular(15.0),
+                      bottomRight: Radius.circular(15.0),
+                      topRight: Radius.circular(15.0)),
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image:
+                        AssetImage('assets/tyler-nix-VZEj0iepzKA-unsplash.jpg'),
+                  ),
                 ),
               ),
             ),
