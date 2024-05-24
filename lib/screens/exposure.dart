@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:pollutrack24/screens/what_air_pollution.dart';
+import 'package:pollutrack24/screens/what_exposure.dart';
 import 'package:pollutrack24/utils/custom_plot.dart';
 import 'package:pollutrack24/providers/homeprovider.dart';
 import 'package:provider/provider.dart';
@@ -14,8 +16,8 @@ class Exposure extends StatelessWidget {
           child: ChangeNotifierProvider(
         create: (context) => HomeProvider(),
         builder: (context, child) => Padding(
-          padding:
-              const EdgeInsets.only(left: 12.0, right: 12.0, top: 10, bottom: 20),
+          padding: const EdgeInsets.only(
+              left: 12.0, right: 12.0, top: 10, bottom: 20),
           child: Consumer<HomeProvider>(builder: (context, provider, child) {
             return Column(
               mainAxisSize: MainAxisSize.min,
@@ -81,8 +83,8 @@ class Exposure extends StatelessWidget {
                           padding: const EdgeInsets.all(8.0),
                           child: InkWell(
                             onTap: () {
-                              provider.getDataOfDay(
-                                  provider.showDate.add(const Duration(days: 1)));
+                              provider.getDataOfDay(provider.showDate
+                                  .add(const Duration(days: 1)));
                             },
                             child: Container(
                               width: 56,
@@ -170,7 +172,8 @@ class Exposure extends StatelessWidget {
                 const SizedBox(
                   height: 5,
                 ),
-                const Text("See how much you’ve been exposed throughout the day",
+                const Text(
+                    "See how much you’ve been exposed throughout the day",
                     style: TextStyle(
                       fontSize: 12,
                       color: Colors.black45,
@@ -230,19 +233,24 @@ class Exposure extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Container(
-                                  width: 300,
-                                  height: 200,
-                                  decoration: const BoxDecoration(
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(15.0),
-                                        bottomLeft: Radius.circular(15.0),
-                                        bottomRight: Radius.circular(15.0),
-                                        topRight: Radius.circular(15.0)),
-                                    image: DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image: AssetImage(
-                                          'assets/tyler-nix-VZEj0iepzKA-unsplash.jpg'),
+                                InkWell(
+                                  onTap: () => Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                          builder: (_) => WhatExposure())),
+                                  child: Container(
+                                    width: 300,
+                                    height: 200,
+                                    decoration: const BoxDecoration(
+                                      borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(15.0),
+                                          bottomLeft: Radius.circular(15.0),
+                                          bottomRight: Radius.circular(15.0),
+                                          topRight: Radius.circular(15.0)),
+                                      image: DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image: AssetImage(
+                                            'assets/tyler-nix-VZEj0iepzKA-unsplash.jpg'),
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -270,19 +278,24 @@ class Exposure extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Container(
-                                  width: 300,
-                                  height: 200,
-                                  decoration: const BoxDecoration(
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(15.0),
-                                        bottomLeft: Radius.circular(15.0),
-                                        bottomRight: Radius.circular(15.0),
-                                        topRight: Radius.circular(15.0)),
-                                    image: DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image: AssetImage(
-                                          'assets/mike-marrah-8687b4ITjhA-unsplash.jpg'),
+                                InkWell(
+                                  onTap: () => Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                          builder: (_) => WhatAirPollution())),
+                                  child: Container(
+                                    width: 300,
+                                    height: 200,
+                                    decoration: const BoxDecoration(
+                                      borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(15.0),
+                                          bottomLeft: Radius.circular(15.0),
+                                          bottomRight: Radius.circular(15.0),
+                                          topRight: Radius.circular(15.0)),
+                                      image: DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image: AssetImage(
+                                            'assets/mike-marrah-8687b4ITjhA-unsplash.jpg'),
+                                      ),
                                     ),
                                   ),
                                 ),

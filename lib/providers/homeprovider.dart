@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:pollutrack24/models/heart_rate.dart';
 import 'package:pollutrack24/models/inhalation_rate.dart';
@@ -6,6 +5,7 @@ import 'package:pollutrack24/models/pm25.dart';
 import 'package:pollutrack24/utils/algorithm.dart';
 import 'package:pollutrack24/services/impact.dart';
 import 'package:pollutrack24/services/purpleair.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // this is the change notifier. it will manage all the logic of the home page: fetching the correct data from the online services
 class HomeProvider extends ChangeNotifier {
@@ -33,6 +33,8 @@ class HomeProvider extends ChangeNotifier {
 
   // method to get the data of the chosen day
   void getDataOfDay(DateTime showDate) async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    nick = sp.getString('name') ?? 'User';
     showDate = DateUtils.dateOnly(showDate);
     this.showDate = showDate;
     _loading(); // method to give a loading ui feedback to the user
@@ -50,8 +52,10 @@ class HomeProvider extends ChangeNotifier {
     print('Got data for $showDate: ${heartRates.length}, ${pm25.length}');
     inhalationRate = _calculateExposure(heartRates, pm25);
     exposure = inhalationRate.map((e) => e.value).reduce(
-          (value, element) => value + element,
-        )/300*100;
+              (value, element) => value + element,
+            ) /
+        300 *
+        100;
     // after selecting all data we notify all consumers to rebuild
     notifyListeners();
   }
