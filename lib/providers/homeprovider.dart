@@ -26,11 +26,6 @@ class HomeProvider extends ChangeNotifier {
   // Algorithm class
   final Algorithmms algorithm = Algorithmms(1);
 
-  // constructor of provider which manages the fetching of all data from the servers and then notifies the ui to build
-  HomeProvider() {
-    getDataOfDay(showDate);
-  }
-
   // method to get the data of the chosen day
   void getDataOfDay(DateTime showDate) async {
     SharedPreferences sp = await SharedPreferences.getInstance();

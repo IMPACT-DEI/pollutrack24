@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:pollutrack24/providers/homeprovider.dart';
 import 'package:pollutrack24/screens/exposure.dart';
 import 'package:pollutrack24/screens/profile.dart';
+import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -41,6 +43,13 @@ class _HomeState extends State<Home> {
       default:
         return Exposure();
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<HomeProvider>(context,listen: false)
+        .getDataOfDay(DateTime.now().subtract(const Duration(days: 1)));
   }
 
   @override
